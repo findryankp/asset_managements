@@ -5,13 +5,15 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\LocationModel;
+use App\Models\RoomModel;
 
 class LocationController extends BaseController
 {
     public function index()
     {
         $model = new LocationModel();
-        $model->join('rooms', 'rooms.id = transactions.room_id');
+        $model->select('locations.*,rooms.room_name');
+        $model->join('rooms', 'rooms.id = locations.room_id');
         $data['locations'] = $model->findAll();
 
         return view('locations/index', $data);
@@ -19,7 +21,9 @@ class LocationController extends BaseController
 
     public function create()
     {
-        return view('locations/create');
+        $roomModel = new RoomModel();
+        $data['rooms'] = $roomModel->findAll();
+        return view('locations/create',$data);
     }
 
     public function store()
@@ -39,8 +43,10 @@ class LocationController extends BaseController
 
     public function edit($id)
     {
+        $roomModel = new RoomModel();
+        $data['rooms'] = $roomModel->findAll();
         $model = new LocationModel();
-        $data['location'] = $model->find($id);
+        $data['locations'] = $model->find($id);
 
         return view('locations/edit', $data);
     }

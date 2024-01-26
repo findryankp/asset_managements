@@ -12,7 +12,6 @@ class ProductController extends BaseController
     {
         $model = new ProductModel();
         $data['products'] = $model->findAll();
-
         return view('products/index', $data);
     }
 
@@ -26,13 +25,13 @@ class ProductController extends BaseController
         $model = new ProductModel();
 
         $data = [
-            'product_kode' => $this->request->getPost('product_kode'),
+            'product_code' => $this->request->getPost('product_code'),
             'product_name' => $this->request->getPost('product_name'),
         ];
 
         $model->insert($data);
 
-        return redirect()->to('/products')->with('success', 'products added successfully.');
+        return redirect()->to('/products')->with('success', 'Products added successfully.');
     }
 
     public function edit($id)
@@ -48,8 +47,8 @@ class ProductController extends BaseController
         $model = new ProductModel();
 
         $data = [
-            'kategori_kode' => $this->request->getPost('kategori_kode'),
-            'kategori_name' => $this->request->getPost('kategori_name'),
+            'product_code' => $this->request->getPost('product_code'),
+            'product_name' => $this->request->getPost('product_name'),
         ];
 
         $model->update($id, $data);

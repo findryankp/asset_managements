@@ -24,6 +24,7 @@ class RoomController extends BaseController
     public function store()
     {
         $model = new RoomModel();
+        // dump($this->request->getPost('room_name'));
 
         $data = [
             'room_name' => $this->request->getPost('room_name'),

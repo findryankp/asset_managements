@@ -12,7 +12,7 @@ class LocationModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['room_id','location_code','location_name'];
 
     // Dates
     protected $useTimestamps = true;

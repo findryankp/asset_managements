@@ -51,7 +51,7 @@
 
                 <!-- Bulan Berjalan RP -->
                 <label for="bulan_berjalan_rp">Bulan Berjalan RP:</label>
-                <input class="form-control mb-3" type="text" name="bulan_berjalan_rp" required>
+                <input readonly class="form-control mb-3" type="text" name="bulan_berjalan_rp" required>
 
                 <!-- Harga Perolehan -->
                 <label for="harga_perolehan">Harga Perolehan:</label>
@@ -64,4 +64,26 @@
 </div>
 
 <?= $this->endSection() ?>
+
+<?= $this->section('addJS') ?>
+<script>
+    $(document).ready(function() {
+        // Function to calculate bulan_berjalan_rp and round to the nearest thousand
+        function calculateBulanBerjalanRp() {
+            var hargaPerolehan = parseFloat($('[name="harga_perolehan"]').val()) || 0;
+            var penyusutan = parseFloat($('[name="penyusutan"]').val()) || 0;
+
+            // Perform the calculation and round to the nearest thousand
+            var bulanBerjalanRp = Math.round(hargaPerolehan / penyusutan);
+
+            // Update the value in the input field
+            $('[name="bulan_berjalan_rp"]').val(bulanBerjalanRp);
+        }
+
+        // Call the function when harga_perolehan or penyusutan changes
+        $('[name="harga_perolehan"], [name="penyusutan"]').on('input', calculateBulanBerjalanRp);
+    });
+</script>
+<?= $this->endSection() ?>
+
 
